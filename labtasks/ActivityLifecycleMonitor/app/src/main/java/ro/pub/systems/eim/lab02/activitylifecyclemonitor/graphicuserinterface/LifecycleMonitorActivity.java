@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 
@@ -62,7 +63,62 @@ public class LifecycleMonitorActivity extends AppCompatActivity {
         Button cancelButton = (Button) findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(buttonClickListener);
 
-        Log.d(Constants.TAG, "onCreate() method was invoked without a previous state");
+
+
+        if(savedInstanceState != null)
+        {
+            Log.d("activityrestarted" , "a mai fost creata");
+        }
+        else
+        {
+            Log.d("activitylifecyclemonito" , "onCreate() method was invoked without a previous state");
+        }
+
+    }
+
+
+    protected void onSavedInstance(Bundle savedInstanceState)
+    {
+        super.onSaveInstanceState(savedInstanceState);
+        CheckBox c = (CheckBox)findViewById(R.id.remember_me_checkbox);
+        if ( c.isChecked() )
+        {
+            EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+            savedInstanceState.putString(Constants.USERNAME_EDIT_TEXT, usernameEditText.getText().toString());
+            EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
+            savedInstanceState.putString(Constants.USERNAME_EDIT_TEXT, passwordEditText.getText().toString());
+        }
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("activitylifecyclemonito" , "onRestart() method was invoked without a previous state");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("activitylifecyclemonito", "onResume() method was invoked without a previous state");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("activitylifecyclemonito", "onPause() method was invoked without a previous state");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("activitylifecyclemonito", "onStop() method was invoked without a previous state");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("activitylifecyclemonito", "onDestroy() method was invoked without a previous state");
     }
 
 }
